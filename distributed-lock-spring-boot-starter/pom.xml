@@ -1,0 +1,68 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.allbluehu.develop</groupId>
+    <artifactId>develop</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>distributed-lock-spring-boot-starter</artifactId>
+  <name>distributed-lock-spring-boot-starter</name>
+  <description>基于 Redisson 的分布式锁 Spring Boot Starter：配置 Redis 即生效，注解驱动，支持 SpEL key 与多种锁类型。</description>
+
+  <dependencies>
+    <!-- 自动装配：@AutoConfiguration / @ConditionalOnBean 等 -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-autoconfigure</artifactId>
+    </dependency>
+
+    <!-- AOP：@Aspect / @Around / AspectJ 代理 -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-aop</artifactId>
+    </dependency>
+
+    <!-- Redisson：仅引用 RedissonClient / RLock 等类型，Bean 由使用方（如 redisson-spring-boot-starter）提供 -->
+    <dependency>
+      <groupId>org.redisson</groupId>
+      <artifactId>redisson</artifactId>
+    </dependency>
+
+    <!-- 配置元数据生成（IDE 提示用，不传递） -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <optional>true</optional>
+    </dependency>
+
+    <!-- 测试 -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.13.0</version>
+        <configuration>
+          <release>21</release>
+          <!-- 保留参数名，SpEL #paramName 依赖此；Spring 6 已移除调试信息回退发现 -->
+          <parameters>true</parameters>
+        </configuration>
+      </plugin>
+      <!-- Spring Boot Maven Plugin：生成配置元数据（IDE 自动补全） -->
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>

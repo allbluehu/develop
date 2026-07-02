@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mvn compile *)",
+      "Bash(mvn test-compile *)",
+      "Bash(mkdir -p /Users/huaolan/allbluehu/learn/develop/develop/starter-test/src/main/resources)",
+      "Bash(mkdir -p /Users/huaolan/allbluehu/learn/develop/develop/starter-test/src/test/java/org/allbluehu/develop/startertest)",
+      "Bash(mkdir -p /Users/huaolan/allbluehu/learn/develop/develop/starter-test/src/test/resources)",
+      "WebSearch",
+      "Bash(curl -s \"https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter-parent/maven-metadata.xml\")",
+      "Bash(curl -s \"https://repo1.maven.org/maven2/org/redisson/redisson/maven-metadata.xml\")",
+      "Bash(mvn help:effective-pom)",
+      "Bash(git init *)",
+      "Bash(git add *)"
+    ]
+  }
+}

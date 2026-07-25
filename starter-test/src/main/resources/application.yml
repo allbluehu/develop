@@ -10,7 +10,7 @@ distributed-lock:
   # 确保配置存在，避免自动配置报错
   enabled: true
   redis:
-    host: localhost
-    port: 6379
-    password:
-    database: 0
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+    password: ${REDIS_PASSWORD:}
+    database: ${REDIS_DATABASE:0}

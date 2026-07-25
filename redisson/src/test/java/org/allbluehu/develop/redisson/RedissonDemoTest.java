@@ -5,9 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.redisson.api.RedissonClient;
-import org.redisson.codec.JsonJacksonCodec;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 /**
@@ -26,7 +24,8 @@ class RedissonDemoTest {
     @BeforeAll
     static void setUp() {
         try {
-            client = RedissonConfig.createSingle("redis://127.0.0.1:6379");
+//            client = RedissonConfig.createSingle("redis://127.0.0.1:6379");
+            client = RedissonConfig.createFromYaml("redisson-config.yaml");
             demo = new RedissonDemo(client);
         } catch (Exception e) {
             System.out.println("Redis 未连接，跳过测试: " + e.getMessage());
@@ -41,17 +40,45 @@ class RedissonDemoTest {
     }
 
     @Test
-    @DisplayName("RBucket 读写")
-    void testBucket() {
+    @DisplayName("String: RBucket 读写")
+    void testString() {
         assumeRedisAvailable();
-        demo.bucketDemo();
+        demo.stringDemo("test:string");
     }
 
     @Test
-    @DisplayName("RMap 读写")
-    void testMap() {
+    @DisplayName("Set: RSet 读写")
+    void testSet() {
         assumeRedisAvailable();
-        demo.mapDemo();
+        demo.setDemo("test:set");
+    }
+
+    @Test
+    @DisplayName("SortedSet: RScoredSortedSet 读写")
+    void testSortedSet() {
+        assumeRedisAvailable();
+        demo.sortedSetDemo("test:zset");
+    }
+
+    @Test
+    @DisplayName("List: RList 读写")
+    void testList() {
+        assumeRedisAvailable();
+        demo.listDemo("test:list");
+    }
+
+    @Test
+    @DisplayName("Hash: RMap 读写")
+    void testHash() {
+        assumeRedisAvailable();
+        demo.hashDemo("test:hash");
+    }
+
+    @Test
+    @DisplayName("布隆过滤器")
+    void testBloomFilter() {
+        assumeRedisAvailable();
+        demo.bloomFilterDemo("test:bloom");
     }
 
     @Test

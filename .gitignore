@@ -37,3 +37,10 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### 敏感配置 ###
+**/application-local.yml
+**/application-local.properties
+*.env
+*config.yml
+*config.ymal

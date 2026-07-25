@@ -14,6 +14,7 @@
     <module>redisson</module>
     <module>distributed-lock-spring-boot-starter</module>
     <module>starter-test</module>
+      <module>redisDemo</module>
   </modules>
 
   <properties>

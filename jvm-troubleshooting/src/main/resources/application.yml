@@ -1,0 +1,26 @@
+server:
+  # 独立端口，避免与其它模块冲突
+  port: 8000
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+
+spring:
+  application:
+    name: jvm-troubleshooting
+
+management:
+  # 暴露 actuator 端点，排查时可观察 /actuator/metrics/jvm.* 等
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,env,threaddump
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    root: info
+    org.allbluehu.develop: info

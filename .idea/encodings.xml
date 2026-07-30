@@ -3,6 +3,8 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/distributed-lock-spring-boot-starter/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/distributed-lock-spring-boot-starter/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jvm-troubleshooting/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jvm-troubleshooting/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/redisDemo/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/redisDemo/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/redisson/src/main/java" charset="UTF-8" />

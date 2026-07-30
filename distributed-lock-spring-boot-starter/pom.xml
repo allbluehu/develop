@@ -59,9 +59,13 @@
         </configuration>
       </plugin>
       <!-- Spring Boot Maven Plugin：生成配置元数据（IDE 自动补全） -->
+      <!-- 本模块是 starter 库，无主类，需跳过 repackage（继承 spring-boot-starter-parent 后默认会绑定） -->
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
       </plugin>
     </plugins>
   </build>

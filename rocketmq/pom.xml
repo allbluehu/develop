@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.allbluehu.develop</groupId>
+    <artifactId>develop</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>rocketmq</artifactId>
+  <packaging>jar</packaging>
+
+  <name>rocketmq</name>
+  <description>RocketMQ 实验场：发送方式 / 重试与死信 / 幂等 / 顺序 / 延迟 / 事务 / Tag 过滤 / 原生 API / 消息积压</description>
+
+  <dependencies>
+    <!-- Spring Boot Web：REST 接口触发各实验 -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <!-- RocketMQ 官方 starter：RocketMQTemplate（封装 DefaultMQProducer）
+         + @RocketMQMessageListener（封装 DefaultMQPushConsumer）。
+         版本由父 pom dependencyManagement 锁定，其内部依赖的 rocketmq-client
+         与 docker 镜像 apache/rocketmq:5.3.2 同版本 -->
+    <dependency>
+      <groupId>org.apache.rocketmq</groupId>
+      <artifactId>rocketmq-spring-boot-starter</artifactId>
+    </dependency>
+
+    <!-- Lombok (可选，简化代码) -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <optional>true</optional>
+    </dependency>
+
+    <!-- Spring Boot Test -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <finalName>rocketmq-lab</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>${spring-boot.version}</version>
+        <configuration>
+          <excludes>
+            <exclude>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+            </exclude>
+          </excludes>
+        </configuration>
+        <executions>
+          <!-- 父 pom 不是 spring-boot-starter-parent，需显式绑定 repackage 生成可执行 fat jar -->
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

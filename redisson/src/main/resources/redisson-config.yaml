@@ -1,0 +1,13 @@
+# 单节点模式配置 —— 被解析为 org.redisson.config.SingleServerConfig
+singleServerConfig:
+  # 必须带 redis:// 协议头，端口直接写在地址里，没有单独的 port 字段
+  address: "redis://8.138.109.224:6379"
+  # 连接池大小
+  connectionPoolSize: 8
+  connectionMinimumIdleSize: 2
+  # 连接/命令超时（毫秒）
+  connectTimeout: 10000
+  timeout: 3000
+  # 命令失败重试次数与间隔
+  retryAttempts: 3
+  retryInterval: 1500

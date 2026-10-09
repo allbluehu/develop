@@ -4,13 +4,19 @@ server:
 spring:
   application:
     name: starter-test
+  # RedissonClient 由 redisson-spring-boot-starter 依据这段配置创建；
+  # 没有这段（或 Redis 连不上）则锁切面不装配，@DistributedLock 静默失效
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      database: ${REDIS_DATABASE:0}
 
-# Distributed Lock Starter 配置
-distributed-lock:
-  # 确保配置存在，避免自动配置报错
-  enabled: true
-  redis:
-    host: ${REDIS_HOST:localhost}
-    port: ${REDIS_PORT:6379}
-    password: ${REDIS_PASSWORD:}
-    database: ${REDIS_DATABASE:0}
+# 分布式锁 starter 配置，前缀见 LockProperties
+allblue:
+  lock:
+    enabled: true
+    default-wait-time: 3000
+    default-lease-time: -1        # -1 = 走 Redisson 看门狗自动续期
+    key-namespace: starter-test   # key 命名空间，隔离不同应用

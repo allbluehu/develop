@@ -1,0 +1,4 @@
+# 单节点模式配置 —— 被解析为 org.redisson.config.SingleServerConfig
+singleServerConfig:
+  # 必须带 redis:// 协议头，端口直接写在地址里，没有单独的 port 字段
+  address: "redis://8.138.109.224:6379"

@@ -24,12 +24,15 @@
     <module>starter-test</module>
       <module>redisDemo</module>
       <module>jvm-troubleshooting</module>
+      <module>rocketmq</module>
   </modules>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>21</java.version>
     <spring-boot.version>3.5.16</spring-boot.version>
+    <redisson.version>4.6.1</redisson.version>
+    <rocketmq-spring.version>2.3.6</rocketmq-spring.version>
   </properties>
 
   <dependencyManagement>
@@ -45,7 +48,19 @@
       <dependency>
         <groupId>org.redisson</groupId>
         <artifactId>redisson</artifactId>
-        <version>4.6.1</version>
+        <version>${redisson.version}</version>
+      </dependency>
+      <!-- 提供 RedissonClient 自动装配，供 starter-test 这类「使用方」引入 -->
+      <dependency>
+        <groupId>org.redisson</groupId>
+        <artifactId>redisson-spring-boot-starter</artifactId>
+        <version>${redisson.version}</version>
+      </dependency>
+      <!-- RocketMQ 官方 starter，内部依赖的 rocketmq-client 与 docker 镜像 apache/rocketmq:5.3.2 同版本 -->
+      <dependency>
+        <groupId>org.apache.rocketmq</groupId>
+        <artifactId>rocketmq-spring-boot-starter</artifactId>
+        <version>${rocketmq-spring.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

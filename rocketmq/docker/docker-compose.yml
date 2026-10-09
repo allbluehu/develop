@@ -1,0 +1,47 @@
+# RocketMQ 本地学习环境：NameServer + Broker（+ 可选 Dashboard）
+# 启动：docker compose up -d          （在 rocketmq/docker 目录下）
+# 停止：docker compose down            （加 -v 可顺带清掉数据卷重置环境）
+
+name: rocketmq-lab
+
+services:
+  # 路由中心：无状态集群，Broker 主动向它注册，客户端从它拉取路由
+  namesrv:
+    image: apache/rocketmq:5.3.2
+    container_name: rmqnamesrv
+    command: sh mqnamesrv
+    environment:
+      # 镜像默认堆参数偏大（生产级），本地学习压小
+      - JAVA_OPT_EXT=-Xms512m -Xmx512m -Xmn128m
+    ports:
+      - "9876:9876"
+
+  # 消息存储与转发节点：所有消息的顺序写、索引、投递都发生在它上面
+  broker:
+    image: apache/rocketmq:5.3.2
+    container_name: rmqbroker
+    depends_on:
+      - namesrv
+    command: sh mqbroker -n namesrv:9876 -c /home/rocketmq/conf/broker.conf
+    environment:
+      - JAVA_OPT_EXT=-Xms512m -Xmx512m -Xmn128m
+    ports:
+      - "10909:10909"   # VIP 通道端口（listenPort - 2，老客户端用）
+      - "10911:10911"   # 主 remoting 端口，Java 客户端实际连这里
+    volumes:
+      - ./broker.conf:/home/rocketmq/conf/broker.conf:ro
+      # 想看存储结构就进容器：docker exec -it rmqbroker ls ~/store
+      # commitlog/ 全量消息、consumequeue/ 逻辑队列索引、index/ 按 key 的哈希索引
+
+  # 可视化控制台（Docker Hub 直连超时，镜像从 DaoCloud 源拉取后重新打了标签）
+  dashboard:
+    image: docker.m.daocloud.io/apacherocketmq/rocketmq-dashboard:1.0.0
+    container_name: rmqdashboard
+    profiles:
+      - dashboard
+    depends_on:
+      - namesrv
+    environment:
+      - JAVA_OPTS=-Drocketmq.namesrv.addr=namesrv:9876
+    ports:
+      - "8180:8080"

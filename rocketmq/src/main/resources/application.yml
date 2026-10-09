@@ -1,0 +1,23 @@
+server:
+  port: 8082   # starter-test 占 8081，jvm-troubleshooting 占 8000，本模块用 8082
+
+spring:
+  application:
+    name: rocketmq-lab
+
+rocketmq:
+  # NameServer 地址：docker compose 起在宿主机 9876
+  name-server: 127.0.0.1:9876
+  producer:
+    # 生产者组（事务消息回查也按组定位生产者，必须配）
+    group: lab-producer-group
+    send-message-timeout: 5000
+    # 同步发送失败时的内部重试次数（换 Broker 重发，防瞬时抖动丢消息）
+    retry-times-when-send-failed: 2
+    retry-times-when-send-async-failed: 2
+
+# 客户端内部日志较吵，压到 WARN；实验过程靠本模块自己打的日志观察
+logging:
+  level:
+    RocketmqClient: warn
+    RocketmqRemoting: warn
